@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# ADI brand material: internal, never commit. Each user copies their own from the internal source into assets/.
+assets/*.potx
+assets/*.pptx
+assets/previews/
+
+# Generated or sensitive output
+*.pdf
+*.lint.md
+SKILL.deckbuilder.orig.md

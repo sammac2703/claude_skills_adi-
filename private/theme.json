@@ -1,0 +1,45 @@
+{
+  "name": "ADI-Brand-2026-Standard",
+  "_note": "Hand-tuned from extract_template.py output against the ADI 2026 brand rules in SKILL.md.",
+  "template": "../assets/ADI-Brand-PowerPoint-Template-Standard-2026-v1.potx",
+  "blank_layout": ["Title Only – Blank", "Title Only - Blank", "Title Only"],
+  "mode": "template",
+  "template_background": "light",
+  "fonts": {
+    "heavy": {"face": "Barlow Medium", "bold": false},
+    "head": {"face": "Barlow Medium", "bold": false},
+    "body": {"face": "Barlow", "bold": false},
+    "light": {"face": "Barlow", "bold": false}
+  },
+  "colors": {
+    "dark_bg": "00325C", "dark_bg2": "00325C",
+    "light_bg": "FFFFFF", "light_bg2": "FFFFFF",
+    "on_dark": "FFFFFF", "on_dark_muted": "9EA1AE",
+    "on_light": "000000", "on_light_muted": "3C4157",
+    "accent": "0067B9", "accent2": "1B9CD0",
+    "ramp_start": "00325C", "ramp_end": "1B9CD0",
+    "rival": "9EA1AE", "ours": "0067B9",
+    "positive": "179963", "warn": "FED141"
+  },
+  "footer": {
+    "text": "©2026 Analog Devices, Inc. All Rights Reserved.",
+    "slide_numbers": true,
+    "required_text": "©2026 Analog Devices, Inc. All Rights Reserved.",
+    "classifications": {
+      "public": "©2026 Analog Devices, Inc. All Rights Reserved.",
+      "confidential": "Analog Devices Confidential Information. ©2026 Analog Devices, Inc. All Rights Reserved.",
+      "internal": "Analog Devices Confidential Information—Not for External Distribution. ©2026 Analog Devices, Inc. All Rights Reserved."
+    }
+  },
+  "logo": {"path": null, "width_in": 1.1, "position": "br"},
+  "photo_overlay_opacity": 0.55,
+  "morph_ms": 1000,
+  "motion": {
+    "level": "minimal",
+    "base": "fade", "base_ms": 400,
+    "hook": "fade", "hook_ms": 600,
+    "section": "fade", "section_ms": 600,
+    "appendix": "cut",
+    "anim_ms": 400
+  }
+}

@@ -1,0 +1,421 @@
+{
+  "_readme": "EXAMPLE ONLY. Fictional customer, placeholder part number (ADxxxx) and illustrative numbers. Replace everything before using with a real customer.",
+  "meta": {
+    "customer": "Northwind Medical",
+    "application": "Wearable patient-monitoring patch (Gen-3)",
+    "audience": [
+      "hardware lead",
+      "systems architect",
+      "procurement"
+    ],
+    "presenter": "ADI field applications engineer",
+    "meeting_date": "2026-11-06",
+    "competitors": [
+      "Competitor A"
+    ]
+  },
+  "motion": "standard",
+  "theme": null,
+  "slides": [
+    {
+      "layout": "mosaic",
+      "kicker": "Northwind Medical  x  Analog Devices",
+      "title": "Two weeks on one charge",
+      "subtitle": "Your goal for the Gen-3 patch",
+      "photo": "assets/application_photo.jpg",
+      "notes": {
+        "say": "You told us the Gen-3 patch has to last a full two-week monitoring period without a recharge. That is the whole meeting: how to get there.",
+        "ask": "Is two weeks still the number, or has it moved?",
+        "pause_after": true
+      }
+    },
+    {
+      "layout": "credibility",
+      "photo": "assets/application_photo.jpg",
+      "number": "12M",
+      "unit": "patches in the field",
+      "line": "Same signal chain, same class of wearable",
+      "notes": {
+        "say": "We have done this before, in exactly this kind of device.",
+        "conditions": "EXAMPLE figure. Replace with a reference win that is cleared to share.",
+        "source": "Internal reference design list (placeholder)"
+      }
+    },
+    {
+      "layout": "statement",
+      "kicker": "Today",
+      "text": "Three chips.\n41 mW.\nCharged every 3 days.",
+      "notes": {
+        "pause_before": true,
+        "say": "This is the Gen-2 board as you described it to us. [CLICK] Three separate parts in the measurement path. [CLICK] 41 milliwatts. [CLICK] And a battery that lasts three days.",
+        "ask": "Did we get that right?",
+        "conditions": "41 mW average system power in continuous ECG + motion mode, 25 C, customer bench data from the Gen-2 review. 3 days on a 200 mAh cell."
+      },
+      "build": "lines"
+    },
+    {
+      "layout": "status_quo",
+      "kicker": "What it costs today, per patch",
+      "rows": [
+        {
+          "item": "Discrete analog front end",
+          "value": "$3.10"
+        },
+        {
+          "item": "Separate ADC",
+          "value": "$2.40"
+        },
+        {
+          "item": "Motion sensor",
+          "value": "$1.30"
+        },
+        {
+          "item": "Line calibration",
+          "value": "$2.00"
+        }
+      ],
+      "total": {
+        "label": "Total",
+        "value": "$8.80"
+      },
+      "ours": {
+        "label": "One device",
+        "value": "$5.90",
+        "note": "Integrated path, no line calibration"
+      },
+      "build_rows": true,
+      "notes": {
+        "say": "Here is what that design costs you, line by line.",
+        "conditions": "EXAMPLE prices at 10k units, from the customer's Gen-2 BOM. ADI figure is illustrative budgetary pricing, not a quote."
+      },
+      "build_notes": [
+        "[CLICK] The ADC.",
+        "[CLICK] The motion sensor.",
+        "[CLICK] Calibration on the line, which people forget.",
+        "[CLICK] Total. [PAUSE]",
+        "[CLICK] And this is where we are going. [PAUSE] Do not explain it yet."
+      ]
+    },
+    {
+      "layout": "criteria",
+      "kicker": "What has to be true",
+      "items": [
+        {
+          "word": "Power",
+          "sub": "Two weeks on the same cell"
+        },
+        {
+          "word": "Accuracy",
+          "sub": "Clinical grade across the day"
+        },
+        {
+          "word": "Size",
+          "sub": "Fits the Gen-3 outline"
+        }
+      ],
+      "notes": {
+        "say": "Before we talk about any part, let's agree what good looks like. Three things.",
+        "ask": "Anything missing from this list?"
+      }
+    },
+    {
+      "layout": "quadrant",
+      "x_axis": "Power efficiency",
+      "y_axis": "Measurement accuracy",
+      "x_low": "Higher power",
+      "y_low": "Lower accuracy",
+      "target_label": "Where Gen-3 needs to be",
+      "rivals": [
+        {
+          "name": "Gen-2 three-chip design",
+          "x": 0.22,
+          "y": 0.62
+        },
+        {
+          "name": "Competitor A AFE",
+          "x": 0.42,
+          "y": 0.35
+        }
+      ],
+      "ours": {
+        "name": "ADxxxx",
+        "x": 0.8,
+        "y": 0.8
+      },
+      "reveal": true,
+      "notes": {
+        "say": "Plot today's options on your two axes. The corner you need is empty.",
+        "conditions": "Positions are qualitative, from datasheet typicals at 25 C.",
+        "source": "Competitor A public datasheet rev. B (placeholder); Gen-2 bench data"
+      },
+      "build_notes": [
+        "[CLICK] [PAUSE] Something moves into that corner. Do not name it yet."
+      ]
+    },
+    {
+      "layout": "tease",
+      "enter": "below",
+      "items": [
+        {
+          "title": "A fifth of the power",
+          "body": "Same measurements",
+          "glyph": "1"
+        },
+        {
+          "title": "Clinical accuracy",
+          "body": "Across temperature",
+          "glyph": "2"
+        },
+        {
+          "title": "A smaller board",
+          "body": "One device, not three",
+          "glyph": "3"
+        }
+      ],
+      "notes": {
+        "say": "So: a fifth of the power. Clinical accuracy. A smaller board. A fifth of the power, clinical accuracy, a smaller board.",
+        "ask": "Are you getting it?",
+        "pause_after": true,
+        "conditions": "Power ratio from the bars slide, same mode and cell."
+      }
+    },
+    {
+      "layout": "reveal",
+      "kicker": "These are not three things",
+      "name": "ADxxxx",
+      "image": "assets/product_render.png",
+      "definition": "One device that runs the whole measurement path of the patch.",
+      "notes": {
+        "pause_before": true,
+        "say": "In a sentence: one device that runs the whole measurement path of the patch.",
+        "transition": "Let's look at how."
+      }
+    },
+    {
+      "layout": "zoom_tour",
+      "kicker": "Where it sits",
+      "title": "Your Gen-3 signal chain",
+      "answers": "status_quo",
+      "chain": [
+        {
+          "id": "sensor",
+          "label": "Sensors",
+          "sub": "ECG electrodes, optical"
+        },
+        {
+          "id": "afe",
+          "label": "ADxxxx",
+          "sub": "one device",
+          "ours": true,
+          "inside": [
+            {
+              "label": "ECG front end",
+              "sub": "low noise"
+            },
+            {
+              "label": "Optical TIA",
+              "sub": "PPG channel"
+            },
+            {
+              "label": "ADC",
+              "sub": "one converter"
+            },
+            {
+              "label": "Motion I/F",
+              "sub": "SPI"
+            }
+          ]
+        },
+        {
+          "id": "mcu",
+          "label": "Your MCU",
+          "sub": "firmware unchanged"
+        },
+        {
+          "id": "radio",
+          "label": "BLE radio",
+          "sub": "to the phone"
+        }
+      ],
+      "stops": [
+        {
+          "focus": "afe",
+          "kicker": "Inside the patch",
+          "caption": "Three chips' worth of front end in one device"
+        },
+        {
+          "focus": "afe.1",
+          "kicker": "ECG front end",
+          "caption": "±0.5 % heart-rate error, 0 to 50 °C"
+        }
+      ],
+      "notes": {
+        "say": "Here is your Gen-3 chain. [CLICK] Zoom into the part that changes: everything between the electrodes and your MCU is now one device. [CLICK] And inside it, the ECG front end that keeps clinical accuracy. [CLICK] Back out: your MCU and radio do not change.",
+        "conditions": "EXAMPLE: ±0.5 % typical heart-rate error, 0 to 50 C, against a reference monitor, n = 20 eval boards. Integration per ADxxxx datasheet (placeholder); the motion sensor itself stays external, only its interface is integrated.",
+        "source": "ADI characterisation report (placeholder)"
+      }
+    },
+    {
+      "layout": "statement",
+      "role": "feature",
+      "answers": "power",
+      "kicker": "Gen-2 to Gen-3",
+      "text": "Three chips.\n41 mW.",
+      "then": [
+        "One chip.\n8 mW."
+      ],
+      "notes": {
+        "say": "Remember where we started. Three chips, 41 milliwatts. [CLICK] One chip. Eight.",
+        "pause_after": true,
+        "conditions": "41 mW: customer Gen-2 bench data, continuous ECG + motion, 25 C. 8 mW: EXAMPLE system estimate from measured ADxxxx eval-board current in the same mode, 25 C, typical."
+      },
+      "build_notes": [
+        "[CLICK] One chip. Eight. [PAUSE] The words that change are the only ones that move."
+      ]
+    },
+    {
+      "layout": "hardware",
+      "kicker": "On the evaluation board",
+      "image": "assets/eval_board.jpg",
+      "answers": "size",
+      "callouts": [
+        {
+          "label": "ADxxxx",
+          "detail": "Full measurement path",
+          "x": 0.5,
+          "y": 0.49
+        },
+        {
+          "label": "Low-noise LDO",
+          "detail": "Supply for the front end",
+          "x": 0.2,
+          "y": 0.27
+        },
+        {
+          "label": "Optical window",
+          "detail": "Sensor placement",
+          "x": 0.24,
+          "y": 0.71
+        },
+        {
+          "label": "Host header",
+          "detail": "SPI to your MCU",
+          "x": 0.85,
+          "y": 0.21
+        }
+      ],
+      "notes": {
+        "say": "This is the board you can have on your bench next week. Everything on the left of the header is what goes on the patch.",
+        "fallback": "If the live demo fails, switch to the recorded capture in the appendix."
+      },
+      "zoom": true,
+      "build_notes": [
+        "Zoom 1: the device itself.",
+        "Zoom 2: the supply.",
+        "Zoom 3: where the sensor sits.",
+        "Zoom 4: the header to their MCU.",
+        "Back out to the whole board."
+      ]
+    },
+    {
+      "layout": "big_number",
+      "kicker": "Proof",
+      "from": "3 days",
+      "value": "14 days",
+      "from_label": "Gen-2 today, 200 mAh cell",
+      "label": "With ADxxxx: same cell, same measurements",
+      "notes": {
+        "say": "Same cell. Same measurements. Three days becomes fourteen.",
+        "conditions": "EXAMPLE: modelled from measured ADxxxx eval-board current at 25 C, continuous ECG + motion, 200 mAh cell, 80% usable capacity. Gen-2 from customer bench data.",
+        "source": "ADI power model (placeholder), customer Gen-2 data"
+      },
+      "build_notes": [
+        "[CLICK] Three becomes fourteen. [PAUSE] Let the number settle."
+      ]
+    },
+    {
+      "layout": "roadmap",
+      "cover": {
+        "kicker": "From here",
+        "title": "The plan",
+        "subtitle": "Four steps to Gen-3 production"
+      },
+      "stages": [
+        {
+          "letter": "A",
+          "header": "Evaluate",
+          "body": "EVAL board on your bench, your firmware"
+        },
+        {
+          "letter": "B",
+          "header": "Design review",
+          "body": "Schematic and layout with our FAE"
+        },
+        {
+          "letter": "C",
+          "header": "Prototype",
+          "body": "Gen-3 patch build and validation"
+        },
+        {
+          "letter": "D",
+          "header": "Production",
+          "body": "Supply, test and qualification support"
+        }
+      ],
+      "notes": {
+        "say": "Here is how we get from today to production, together.",
+        "ask": "Which of these steps worries you most?"
+      }
+    },
+    {
+      "layout": "ask",
+      "ask": "Put the ADxxxx eval board on your bench",
+      "owner": "Northwind hardware team, with ADI FAE support",
+      "date": "Board ships 13 Nov 2026, review call 27 Nov 2026",
+      "notes": {
+        "say": "So the ask is simple. Let us ship you the board this month, and let's review your numbers together on the 27th.",
+        "ask": "Who on your side should we send it to?"
+      }
+    }
+  ],
+  "appendix": [
+    {
+      "layout": "table",
+      "title": "Key specifications and conditions",
+      "columns": [
+        "Parameter",
+        "Typ",
+        "Max",
+        "Conditions"
+      ],
+      "rows": [
+        [
+          "Measurement-path power",
+          "4.1 mW",
+          "5.0 mW",
+          "Continuous ECG + motion, 25 C"
+        ],
+        [
+          "Heart-rate error",
+          "±0.5 %",
+          "±1.2 %",
+          "0 to 50 C, n = 20"
+        ],
+        [
+          "Package",
+          "3.5 x 3.5 mm",
+          "-",
+          "WLCSP"
+        ],
+        [
+          "Supply",
+          "1.8 V",
+          "-",
+          "Single rail"
+        ]
+      ],
+      "footnote": "EXAMPLE values for illustration only. Take real figures from the current datasheet revision.",
+      "notes": "All numbers here are placeholders."
+    }
+  ]
+}

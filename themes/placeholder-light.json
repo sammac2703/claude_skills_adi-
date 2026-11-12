@@ -1,0 +1,57 @@
+{
+  "name": "placeholder-light",
+  "_note": "PLACEHOLDER palette. Replace with real ADI template values (run extract_template.py).",
+  "template": null,
+  "blank_layout": [
+    "Blank",
+    "Title Only"
+  ],
+  "mode": "light",
+  "fonts": {
+    "heavy": {
+      "face": "Arial",
+      "bold": true
+    },
+    "head": {
+      "face": "Arial",
+      "bold": true
+    },
+    "body": {
+      "face": "Calibri",
+      "bold": false
+    },
+    "light": {
+      "face": "Calibri Light",
+      "bold": false
+    }
+  },
+  "colors": {
+    "dark_bg": "0D1117",
+    "dark_bg2": "000000",
+    "light_bg": "FFFFFF",
+    "light_bg2": "EEF1F5",
+    "on_dark": "FFFFFF",
+    "on_dark_muted": "9AA4B2",
+    "on_light": "16202C",
+    "on_light_muted": "5D6875",
+    "accent": "2F8CFF",
+    "accent2": "7CC4FF",
+    "ramp_start": "0A2540",
+    "ramp_end": "A9D2F7",
+    "rival": "6B7685",
+    "ours": "2F8CFF",
+    "positive": "34C38F",
+    "warn": "F5A524"
+  },
+  "footer": {
+    "text": "PLACEHOLDER | Add ADI confidentiality line from template",
+    "slide_numbers": true
+  },
+  "logo": {
+    "path": null,
+    "width_in": 1.1,
+    "position": "br"
+  },
+  "photo_overlay_opacity": 0.55,
+  "morph_ms": 1500
+}
