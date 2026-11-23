@@ -9,8 +9,11 @@
     d.build(s, [items], ["First point"], "Speaker notes ...")  # one click per group
     d.finish("deck.pptx")
 
-Rules baked in (see references/clean-click-through.md): no coloured cards, bars, strips or chevrons; text plus thin
-rules; each point appears on its own click; Morph on every slide; CLICKS cue line at the top of the notes.
+Rules baked in (see references/keynote-style.md and references/clean-click-through.md): style="keynote" (default) puts
+every content slide on the template's Dark Blue layout with a black-to-ADI-dark-blue diagonal canvas, white type, ADI light
+blue as the single accent and 12% white hairlines; cards (d.card), icon circles (d.icon) and hero numbers (d.hero) are
+available, three or four per slide at most. style="light" keeps the original text-only light look. Either way: each point
+appears on its own click; Morph on every slide; CLICKS cue line at the top of the notes.
 """
 from __future__ import annotations
 
@@ -25,7 +28,12 @@ from pptx.enum.shapes import MSO_CONNECTOR                # noqa: E402
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR           # noqa: E402,F401
 from pptx.util import Pt, Inches                          # noqa: E402
 
-from deckkit import open_template                         # noqa: E402
+from pptx.dml.color import RGBColor                       # noqa: E402
+from pptx.enum.shapes import MSO_SHAPE                    # noqa: E402
+from pptx.oxml.ns import qn                               # noqa: E402
+from lxml import etree                                    # noqa: E402
+
+from deckkit import open_template, _set_alpha             # noqa: E402
 from motion import Timeline, set_transition, get_transition, count_clicks  # noqa: E402
 
 SKILL = Path(__file__).resolve().parent.parent
@@ -37,12 +45,37 @@ FOOTERS = {
 }
 W, H = 13.333, 7.5
 
+# Keynote canvas (references/keynote-style.md): ADI palette only.
+CANVAS = ("000000", "00325C")   # black to ADI dark blue, diagonal
+CANVAS_ANGLE = 315              # top-left (black) to bottom-right (dark blue)
+CARD_FILL, CARD_OPACITY = "3C4157", 0.6   # ADI dark grey over the canvas reads as charcoal
+HAIRLINE_OPACITY = 0.12
+# On the dark canvas the light-style colour roles are remapped so existing slide code still reads:
+# labels and body go white, closing lines and status lines go to the one accent (ADI light blue).
+KEYNOTE_COLORS = {TC.TEXT_1: TC.BACKGROUND_1, TC.ACCENT_1: TC.BACKGROUND_1,
+                  TC.TEXT_2: TC.ACCENT_2, TC.ACCENT_3: TC.ACCENT_2}
+
 
 class CleanDeck:
-    def __init__(self, classification: str = "public", template: str | None = None):
+    def __init__(self, classification: str = "public", template: str | None = None, style: str = "keynote"):
         self.prs = open_template(str(template or TEMPLATE))
         self.layouts = {l.name: l for l in self.prs.slide_layouts}
         self.footer_text = FOOTERS[classification]
+        self.keynote = style == "keynote"
+
+    def col(self, color):
+        """Colour role for the current style (keynote remaps light-style roles onto the dark canvas)."""
+        return KEYNOTE_COLORS.get(color, color) if self.keynote else color
+
+    @staticmethod
+    def canvas(slide):
+        """Black to ADI dark blue diagonal gradient on the slide background. The layout's white logo, footer
+        and slide number still draw on top, unmoved."""
+        fill = slide.background.fill
+        fill.gradient()
+        fill.gradient_angle = CANVAS_ANGLE
+        st = fill.gradient_stops
+        st[0].color.rgb, st[1].color.rgb = RGBColor.from_string(CANVAS[0]), RGBColor.from_string(CANVAS[1])
 
     # ---- layout / placeholder helpers ------------------------------------------------
     def L(self, prefix):
@@ -74,21 +107,27 @@ class CleanDeck:
         return s
 
     def slide(self, title, dark=False):
-        """Content slide. dark=True uses 'Title and Content - Dark Blue' for a key-message / discussion slide."""
+        """Content slide. Keynote style: always the 'Title and Content - Dark Blue' layout on the diagonal canvas.
+        Light style: 'Title Only', or the Dark Blue layout with dark=True for a key-message / discussion slide."""
+        dark = dark or self.keynote
         s = self.prs.slides.add_slide(self.L("Title and Content - Dark Blue" if dark else "Title Only"))
         s.shapes.title.text = title
         if dark:
             self.drop_ph(s, 11)
+        if self.keynote:
+            self.canvas(s)
         return s
 
-    def sub(self, slide, s, color=TC.TEXT_1, bold=False):
-        """Intro / status line under the title. Visible from the start; shared name lets Morph glide it."""
+    def sub(self, slide, s, color=None, bold=False):
+        """Intro / status line under the title (the accent subtitle in keynote style). Visible from the start;
+        shared name lets Morph glide it."""
+        color = color or (TC.ACCENT_2 if self.keynote else TC.TEXT_1)
         return self.text(slide, 0.46, 1.45, 12.4, 0.4, s, 18, color, bold, name="!!sub")
 
     # ---- primitives -------------------------------------------------------------------
-    @staticmethod
-    def text(slide, x, y, w, h, s, size, color=TC.TEXT_1, bold=False, anchor=MSO_ANCHOR.TOP, name=None,
+    def text(self, slide, x, y, w, h, s, size, color=TC.TEXT_1, bold=False, anchor=MSO_ANCHOR.TOP, name=None,
              brightness=0.0, align=PP_ALIGN.LEFT):
+        color = self.col(color)
         t = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
         tf = t.text_frame
         tf.word_wrap = True
@@ -108,13 +147,71 @@ class CleanDeck:
             t.name = name
         return t
 
-    @staticmethod
-    def rule(slide, x, y, w, color=TC.BACKGROUND_2, name=None):
+    def rule(self, slide, x, y, w, color=TC.BACKGROUND_2, name=None):
+        """Thin rule. Keynote style draws every rule as a faint white hairline (12% opacity)."""
+        hairline = self.keynote          # keynote: every rule is a faint hairline, never a bright rule
         c = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, Inches(x), Inches(y), Inches(x + w), Inches(y))
-        c.line.color.theme_color = color
-        c.line.width = Pt(1.25)
+        c.line.color.theme_color = TC.BACKGROUND_1 if hairline else self.col(color)
+        c.line.width = Pt(1.0 if hairline else 1.25)
+        if hairline:
+            clr = c.line._get_or_add_ln().find(qn("a:solidFill"))[0]
+            etree.SubElement(clr, qn("a:alpha")).set("val", str(int(HAIRLINE_OPACITY * 100000)))
         c.name = name or "Rule"
         return c
+
+    # ---- keynote elements (references/keynote-style.md): three or four per slide at most -------------------
+    def card(self, slide, x, y, w, h, head, body=None, n=1, head_size=20, body_size=16, key=None):
+        """Dark charcoal panel with a slim accent header tab, a white bold heading and short body lines.
+        Returns the shapes as one build item. key='card1' names them !!card1, !!card1_tab ... so Morph can grow
+        the card into a deep dive on the next slide (the zoom-in move)."""
+        nm = (lambda part: f"!!{key}{part}") if key else (lambda part: f"Card {n}{part}")
+        panel = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(h))
+        panel.fill.solid()
+        panel.fill.fore_color.rgb = RGBColor.from_string(CARD_FILL)
+        _set_alpha(panel, CARD_OPACITY)
+        panel.line.fill.background()
+        panel.shadow.inherit = False
+        panel.name = nm("")
+        tab = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(0.08))
+        tab.fill.solid()
+        tab.fill.fore_color.theme_color = TC.ACCENT_2
+        tab.line.fill.background()
+        tab.shadow.inherit = False
+        tab.name = nm("_tab")
+        shapes = [panel, tab, self.text(slide, x + 0.3, y + 0.35, w - 0.6, 0.6, head, head_size, TC.BACKGROUND_1, True,
+                                        name=nm("_head"))]
+        if body:
+            shapes.append(self.text(slide, x + 0.3, y + 1.0, w - 0.6, h - 1.2, body, body_size, TC.BACKGROUND_1,
+                                    name=nm("_body")))
+        return shapes
+
+    def icon(self, slide, x, y, d=1.0, picture=None, glyph=None, n=1, key=None):
+        """Line icon inside an accent circle. picture: an icon exported from the Brand Icon Library, recoloured
+        white (PNG/SVG); glyph: a short stand-in (a digit or symbol) when no approved icon is to hand.
+        Keep every icon on a slide the same diameter."""
+        name = f"!!{key}" if key else f"Icon {n}"
+        c = slide.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x), Inches(y), Inches(d), Inches(d))
+        c.fill.solid()
+        c.fill.fore_color.theme_color = TC.ACCENT_2
+        c.line.fill.background()
+        c.shadow.inherit = False
+        c.name = name
+        out = [c]
+        if picture:
+            p = slide.shapes.add_picture(str(picture), Inches(x + d * 0.22), Inches(y + d * 0.22), Inches(d * 0.56),
+                                         Inches(d * 0.56))
+            p.name = name + "_art"
+            out.append(p)
+        elif glyph:
+            out.append(self.text(slide, x, y, d, d, glyph, max(14, int(d * 28)), TC.BACKGROUND_1, True,
+                                 anchor=MSO_ANCHOR.MIDDLE, align=PP_ALIGN.CENTER, name=name + "_glyph"))
+        return out
+
+    def hero(self, slide, key, x, y, w, h, value, size=120, align=PP_ALIGN.CENTER):
+        """Hero number or two-to-three word statement in the accent, named !!key so it can shrink into a corner
+        card on the next slide (hero-number-to-detail move)."""
+        return self.text(slide, x, y, w, h, value, size, TC.ACCENT_2, True, name=f"!!{key}", align=align,
+                         anchor=MSO_ANCHOR.MIDDLE)
 
     def numbered(self, slide, x, y, w, n, label, size=22, color=TC.ACCENT_1, num_color=TC.ACCENT_2,
                  num_bright=0.0, line_color=TC.BACKGROUND_2):
@@ -167,7 +264,7 @@ class CleanDeck:
                 hero = i == s
                 w = hero_w if hero else others
                 self.m_text(sl, f"fl{i}", x, y, w, 0.7, label, size_hero if hero else size_other,
-                            TC.ACCENT_1 if hero else TC.ACCENT_2, True)
+                            (TC.ACCENT_2 if self.keynote else TC.ACCENT_1) if hero else (TC.BACKGROUND_1 if self.keynote else TC.ACCENT_2), True)
                 self.m_rule(sl, f"flr{i}", x, y + 0.8, w - 0.1, TC.ACCENT_2 if hero else TC.BACKGROUND_2)
                 self.m_text(sl, f"fld{i}", x, y + 1.05, (w - 0.1) if hero else 0.3, 2.0 if hero else 0.2,
                             desc, 20 if hero else 1, TC.TEXT_1)
@@ -219,10 +316,10 @@ class CleanDeck:
                     start = "click" if first else "with"
                     delay = 0 if first else k * stagger_ms
                     if para is None:
-                        tl.add(sh, "wipe" if wipe else effect, start=start, delay=delay, duration=500 if wipe else 450,
+                        tl.add(sh, "wipe" if wipe else effect, start=start, delay=delay, duration=500,
                                label=label if first else None, **(dict(direction="left") if wipe else {}))
                     else:
-                        tl.items.append(dict(shape=sh, effect=effect, start=start, delay=delay, duration=450,
+                        tl.items.append(dict(shape=sh, effect=effect, start=start, delay=delay, duration=500,
                                              direction=None, para=para, by=None, iterate_ms=60, smooth=True,
                                              scale=1.1, opacity=0.35, dx=0.0, dy=0.0, repeat=None,
                                              label=label if first else None))
@@ -232,7 +329,7 @@ class CleanDeck:
         return clicks
 
     # ---- finish + QA -------------------------------------------------------------------
-    def finish(self, out, morph_ms=1000):
+    def finish(self, out, morph_ms=1200):
         """Morph on every slide, save, print click counts and a rough text-fit check."""
         for sl in self.prs.slides:
             if get_transition(sl) is None:          # slides given a transition via d.transition() keep theirs
@@ -244,7 +341,7 @@ class CleanDeck:
             total += c
             print(f"slide {i}: {c} clicks")
             for sh in sl.shapes:
-                if not sh.has_text_frame or sh.is_placeholder or not sh.text_frame.text.strip():
+                if not sh.has_text_frame or sh.is_placeholder or sh.name == "Slide Number" or not sh.text_frame.text.strip():
                     continue
                 w = sh.width / 914400
                 need = 0.0

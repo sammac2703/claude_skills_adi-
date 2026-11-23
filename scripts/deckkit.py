@@ -363,28 +363,36 @@ class Deck:
         return self.c["on_dark_muted"] if d else self.c["on_light_muted"]
 
     # ----- slide creation ---------------------------------------------------
-    def _blank_layout(self):
+    def _blank_layout(self, dark=None):
+        """blank_layout_dark (if the theme has it) for dark slides, so the template's white logo and
+        footer sit on the dark canvas; blank_layout otherwise."""
         layouts = list(self.prs.slide_layouts)
-        for want in self.t.get("blank_layout", []):
+        wants = list(self.t.get("blank_layout", []))
+        if dark and self.t.get("blank_layout_dark"):
+            wants = list(self.t["blank_layout_dark"]) + wants
+        for want in wants:
             for lay in layouts:
                 if lay.name.strip().lower() == want.lower():
                     return lay
         return min(layouts, key=lambda l: len(l.placeholders))
 
     def new_slide(self, dark=None):
-        s = self.prs.slides.add_slide(self._blank_layout())
+        d = self.dark if dark is None else dark
+        s = self.prs.slides.add_slide(self._blank_layout(d))
         # delete any placeholders the layout brought along; we place everything ourselves
         for ph in list(s.placeholders):
             ph._element.getparent().remove(ph._element)
         mode = self.t["mode"]
-        if mode != "template":
-            d = self.dark if dark is None else dark
+        canvas = self.t.get("canvas") or {}
+        # keynote canvas (references/keynote-style.md): painted on dark slides even in template mode
+        if mode != "template" or (d and canvas.get("gradient")):
             fill = s.background.fill
             fill.gradient()
-            fill.gradient_angle = 90
+            fill.gradient_angle = canvas.get("angle", 90)
             st = fill.gradient_stops
             if d:
-                st[0].color.rgb, st[1].color.rgb = rgb(self.c["dark_bg"]), rgb(self.c["dark_bg2"])
+                g = canvas.get("gradient") or [self.c["dark_bg"], self.c["dark_bg2"]]
+                st[0].color.rgb, st[1].color.rgb = rgb(g[0]), rgb(g[1])
             else:
                 st[0].color.rgb, st[1].color.rgb = rgb(self.c["light_bg"]), rgb(self.c["light_bg2"])
         self.slide_no += 1

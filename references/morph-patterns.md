@@ -7,7 +7,7 @@ Studied from slides 13 to 65 of an internal "Gold" deck. What made it feel hand-
 
 The rule behind every pattern: **Morph pairs shapes that share a name**. In `clean_deck.py` use `d.m_text(slide, key, ...)` and `d.m_rule(slide, key, ...)`; the same `key` on consecutive slides becomes one shape that glides between its two states (position, size, font size, colour). Use 1.0 s for normal slides and 1.6 to 2.0 s for state pairs (`d.transition(slide, "morph", 1600)`).
 
-Keep the house style: text, thin rules and photos only, no coloured blocks. Several reference techniques used coloured shapes; the text-only equivalents are given.
+Keep the house style (`keynote-style.md`): dark canvas, one accent, hairlines, and at most three or four cards, icon circles or one hero number per slide (`d.card`, `d.icon`, `d.hero` take a `key` so they Morph). Several reference techniques used other coloured shapes (bars, rings, bands); use the text, card or hero equivalents given here instead.
 
 ## Built into clean_deck.py
 

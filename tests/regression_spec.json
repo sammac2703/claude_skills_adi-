@@ -1,0 +1,32 @@
+{"classification": "internal", "look": "dark", "transition": "fade", "slides": [
+ {"type": "cover", "title": "Regression Deck", "subtitle": "Every block once", "date": "November 2026", "detail": "Draft|[TO CONFIRM: presenter]"},
+ {"type": "statement", "text": "Accelerate human breakthroughs that enrich lives and the world around us", "attribution": "Our purpose", "icon": "CONNECTED HUMANITY", "pillar": "People & Planet", "notes": "Purpose statement."},
+ {"type": "exec_summary", "title": "The Answer Comes First", "look": "light", "answer": "Run a ten-week pilot with four interns",
+  "points": [{"head": "Why now", "text": "Early talent pipeline"}, {"head": "What it costs", "text": "Four seats and a mentor"}, {"head": "How we know", "text": "Week 10 review"}], "notes": "Exec summary."},
+ {"type": "priorities", "title": "One Programme Delivers Three Wins", "rows": [
+   {"label": "For the Intern", "lines": ["See the work", "Grow skills"], "icon": "WORKER"},
+   {"label": "For the Team", "lines": ["One demo", "One pitch"], "icon": "TEAM MEETING"},
+   {"label": "For ADI", "lines": ["Pipeline", "Brand"], "icon": "INTELLIGENT EDGE"}], "statement": "Measured at Week 10", "notes": "Wins."},
+ {"type": "kpi", "title": "Four Numbers Frame the Plan", "items": [
+   {"value": "8", "label": "Talks", "caption": "One a week"}, {"value": "7", "label": "Visits", "caption": "One a week"},
+   {"value": "1:1", "label": "Buddy", "caption": "Weekly"}, {"value": "60%", "label": "Project", "caption": "Rest is learning"}], "notes": "KPIs 8, 7, 60%."},
+ {"type": "agenda", "title": "Built on Proven Formats", "hero": "10", "hero_label": "Weeks", "items": [
+   {"head": "Model", "text": "Paid project"}, {"head": "Onboarding", "text": "Four weeks"}, {"head": "Check-ins", "text": "Daily then weekly"}], "notes": "Agenda."},
+ {"type": "timeline", "title": "Five Phases Across Ten Weeks", "phases": [
+   {"head": "Onboard", "text": "Set up", "when": "Weeks 1-2", "icon": "DESIGNING"}, {"head": "Build", "text": "Test", "when": "Weeks 3-5", "icon": "PROTOTYPING"},
+   {"head": "Close", "text": "Present", "when": "Week 10", "icon": "PRESENTING"}], "notes": "Timeline."},
+ {"type": "icons", "title": "Three Things Interns Do", "look": "light", "sub": "Light icon columns", "items": [
+   {"head": "Build", "text": "A working demo", "icon": "PROTOTYPING"}, {"head": "Write", "text": "An application note", "icon": "ARTICLE WRITING"},
+   {"head": "Present", "text": "To the account team", "icon": "PRESENTING"}], "statement": "One reusable asset", "notes": "Icons."},
+ {"type": "rows", "title": "Six Next Steps Before Launch", "look": "dark", "sub": "Led by the team", "items": [
+   {"text": "Find supporters", "icon": "NETWORKING"}, {"text": "Recruit a buddy", "icon": "HELPING HAND"}, {"text": "Set training", "icon": "DEVELOPMENT STAGES"},
+   {"text": "Write the brief", "icon": "ARTICLE WRITING"}], "statement": "Your feedback shapes the next version", "notes": "Rows."},
+ {"type": "table", "title": "Week-by-Week Plan", "header": ["Week", "Focus", "Owner"], "rows": [["1", "Onboard", "Mentor"], ["2", "Brief", "Team"], ["3", "Design", "Team"]], "widths": [1.5, 5, 3], "notes": "Table."},
+ {"type": "chart", "title": "Visits Grow Through the Programme", "look": "light", "kind": "column", "categories": ["Q1", "Q2", "Q3"], "series": {"2025": [3, 4, 5], "2026": [4, 6, 7]}, "takeaway": "Visits double by Q3", "source": "Source: planner v0.1, November 2026", "notes": "Chart 3 4 5 4 6 7."},
+ {"type": "waterfall", "title": "Price and Volume Offset Cost", "look": "dark", "labels": ["FY25", "Price", "Volume", "Cost", "FY26"], "values": [100, 12, 8, -6, null], "highlight": 2, "takeaway": "Volume is the swing", "source": "Source: illustrative", "notes": "Bridge."},
+ {"type": "matrix", "title": "Quick Wins Come First", "look": "light", "x_label": "Effort", "y_label": "Impact", "quads": ["Quick wins", "Big bets", "Fill-ins", "Avoid"], "points": [["A", 0.2, 0.8], ["B", 0.8, 0.75], ["C", 0.3, 0.2]], "highlight": 0, "takeaway": "Start with A", "notes": "2x2."},
+ {"type": "gantt", "title": "Build Peaks in Weeks Five to Seven", "look": "light", "periods": 10, "tasks": [["Onboard", 1, 2], ["Design", 3, 4], ["Build", 5, 7], ["Present", 9, 10]], "highlight": 2, "notes": "Gantt."},
+ {"type": "ratings", "title": "Option B Balances Cost and Risk", "look": "light", "header": ["Option", "Cost", "Risk"], "rows": [["A", 3, 2], ["B", 2, 3], ["C", 1, 4]], "widths": [4, 3, 3], "highlight": 1, "notes": "Ratings."},
+ {"type": "funnel", "title": "Four Interviews Fill Four Seats", "look": "dark", "stages": [["Applicants", 40], ["Interviewed", 12], ["Offers", 4]], "highlight": 2, "notes": "Funnel."},
+ {"type": "end"}
+]}

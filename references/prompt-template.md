@@ -20,7 +20,9 @@ Use [TO CONFIRM] for any missing name, date or detail. Classification footer: [P
 
 Sources: search [FOLDER(S)] first. Use only verified facts from them; treat [overseas / older / internal documents] as format references only; leave out dated statistics and say so in the notes.
 
-Style and build (house style): text only, no coloured cards, bars, strips or chevrons; thin rules and pale numerals; every point appears on its own click (about 7 clicks per slide max, ~30 total); Morph transition on every slide; two or three hand-crafted Morph moments where they carry meaning (make-room pairs, focus-row accordion, arrows landing with steps, link to a hidden appendix; see references/morph-patterns.md); speaker notes start with a CLICKS cue line, then the script, then sources and [TO CONFIRM] cautions.
+Use case and variation: classify this with references/use-cases.md and state the recipe you chose. Keep Morph and the build timings exactly as below, but vary the motifs, look rhythm and cover image from the last deck (references/variation.md) and list the motifs you used. Check text against references/compliance.md.
+
+Style and build (house style, references/keynote-style.md): keynote look on the ADI template: dark black-to-ADI-dark-blue canvas, ADI light blue as the only accent, white type, faint hairlines, at most three or four cards / icon circles / one hero number per slide; at most four points of six words, no full stops or commas on slides, lead with verbs, a takeaway line on key slides; every point appears on its own click (about 7 clicks per slide max, ~30 total); Morph transition on every slide; two or three hand-crafted Morph moments where they carry meaning (make-room pairs, focus-row accordion, arrows landing with steps, link to a hidden appendix; see references/morph-patterns.md); speaker notes start with a CLICKS cue line, then the script, then sources and [TO CONFIRM] cautions.
 
 Deliver: save as [path\filename_vN.pptx] (new version name if the file is open), run the checks, and tell me the click plan, the open [TO CONFIRM] items, which sources you used, and whether it was visually rendered.
 ```
@@ -28,5 +30,5 @@ Deliver: save as [path\filename_vN.pptx] (new version name if the file is open),
 ## Short version (when the context is already clear)
 
 ```
-Build this as an adi-presentation Route C deck (clean, text-only, click-through builds, Morph on every slide): [one-line brief]. Sources: [folder]. Exclude: [topics]. Save to [path].
+Build this as an adi-presentation Route C deck (keynote style: dark canvas, one accent, minimal words, click-through builds, Morph on every slide): [one-line brief]. Sources: [folder]. Exclude: [topics]. Save to [path].
 ```

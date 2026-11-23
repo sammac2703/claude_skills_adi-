@@ -51,7 +51,7 @@ Fonts come from the ADI template. If the template font has a Light weight, put i
 - 0.8 in outer margin; equal-column grids (N columns of width / N, one idea per column); rule of thirds for single focal points.
 - Left-align text; centre only short labels under centred visuals.
 - Consistent title position across slides of the same layout.
-- Gradient backgrounds (dark grey to black) give depth without decoration.
+- Gradient backgrounds give depth without decoration: on ADI the house canvas is black to ADI dark blue `00325C`, diagonal (see `keynote-style.md`).
 - Inner shadow (inside top-left) for the layered paper look on the mosaic cut-out.
 - Footer, slide number, logo and legal line come from the template master (mode `template`), or from the theme's footer when painting our own backgrounds.
 

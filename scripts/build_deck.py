@@ -9,7 +9,7 @@ Build a customer deck from a brief JSON.
 
 The brief format is documented in references/brief-format.md and
 examples/brief_example.json. Lint runs automatically after saving and its
-report is written next to the deck as <deck>.lint.md.
+report is printed; it is written next to the deck as <deck>.lint.md only with --lint-report.
 """
 from __future__ import annotations
 
@@ -189,6 +189,7 @@ def main():
     ap.add_argument("--theme", default=None, help="theme JSON (overrides the brief's theme)")
     ap.add_argument("--static", action="store_true")
     ap.add_argument("--no-lint", action="store_true")
+    ap.add_argument("--lint-report", action="store_true", help="also write <deck>.lint.md next to the deck")
     a = ap.parse_args()
     bp = Path(a.brief).resolve()
     brief = json.loads(bp.read_text(encoding="utf-8"))
@@ -204,7 +205,8 @@ def main():
         theme = deck.t
         res = lint(str(out), theme=theme, brief=brief, static=a.static)
         report = render(res, str(out))
-        Path(str(out) + ".lint.md").write_text(report, encoding="utf-8")
+        if a.lint_report:                       # off by default: the deck folder gets the .pptx alone
+            Path(str(out) + ".lint.md").write_text(report, encoding="utf-8")
         print(report)
 
 

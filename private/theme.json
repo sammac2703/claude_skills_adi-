@@ -1,10 +1,12 @@
 {
-  "name": "ADI-Brand-2026-Standard",
-  "_note": "Hand-tuned from extract_template.py output against the ADI 2026 brand rules in SKILL.md.",
+  "name": "ADI-Brand-2026-Keynote",
+  "_note": "Default house look: keynote style (references/keynote-style.md) on the ADI 2026 Standard template. Dark diagonal canvas black to ADI dark blue, ADI light blue as the single accent, Barlow, template logo and classification footer. The previous light theme is private/theme-light.json (use --theme for appendix-heavy, printed or PDF-first decks).",
   "template": "../assets/ADI-Brand-PowerPoint-Template-Standard-2026-v1.potx",
   "blank_layout": ["Title Only – Blank", "Title Only - Blank", "Title Only"],
+  "blank_layout_dark": ["Title and Content - Dark Blue", "Title and Content – Dark Blue"],
   "mode": "template",
-  "template_background": "light",
+  "template_background": "dark",
+  "canvas": {"gradient": ["000000", "00325C"], "angle": 315},
   "fonts": {
     "heavy": {"face": "Barlow Medium", "bold": false},
     "head": {"face": "Barlow Medium", "bold": false},
@@ -12,13 +14,14 @@
     "light": {"face": "Barlow", "bold": false}
   },
   "colors": {
-    "dark_bg": "00325C", "dark_bg2": "00325C",
+    "dark_bg": "000000", "dark_bg2": "00325C",
     "light_bg": "FFFFFF", "light_bg2": "FFFFFF",
     "on_dark": "FFFFFF", "on_dark_muted": "9EA1AE",
     "on_light": "000000", "on_light_muted": "3C4157",
-    "accent": "0067B9", "accent2": "1B9CD0",
+    "accent": "1B9CD0", "accent2": "0067B9",
+    "card": "3C4157", "hairline_opacity": 0.12,
     "ramp_start": "00325C", "ramp_end": "1B9CD0",
-    "rival": "9EA1AE", "ours": "0067B9",
+    "rival": "9EA1AE", "ours": "1B9CD0",
     "positive": "179963", "warn": "FED141"
   },
   "footer": {
@@ -33,13 +36,13 @@
   },
   "logo": {"path": null, "width_in": 1.1, "position": "br"},
   "photo_overlay_opacity": 0.55,
-  "morph_ms": 1000,
+  "morph_ms": 1200,
   "motion": {
-    "level": "minimal",
-    "base": "fade", "base_ms": 400,
-    "hook": "fade", "hook_ms": 600,
-    "section": "fade", "section_ms": 600,
+    "level": "standard",
+    "base": "morph", "base_ms": 1200,
+    "hook": "fade_black", "hook_ms": 1000,
+    "section": "morph", "section_ms": 1250,
     "appendix": "cut",
-    "anim_ms": 400
+    "anim_ms": 500
   }
 }

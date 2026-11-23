@@ -6,8 +6,13 @@ __pycache__/
 assets/*.potx
 assets/*.pptx
 assets/previews/
+assets/icons/
+assets/new-slides/
+references/new-slides/
 
 # Generated or sensitive output
 *.pdf
 *.lint.md
 SKILL.deckbuilder.orig.md
+assets/layout_facts.json
+tests/out/
